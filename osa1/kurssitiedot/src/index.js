@@ -3,20 +3,32 @@ import ReactDOM from 'react-dom'
 
 
 const Header = (props) => {
+  
+  const otsikko = props.course.name
+
   return (
     <div>
-      <h1>{props.otsikko} </h1>
+      <h1>{otsikko} </h1>
     </div>
   )
 }
 
 
 const Content = (props ) => {
+
+  const nimi0 = props.course.parts[0].name
+  const nimi1 = props.course.parts[1].name
+  const nimi2 = props.course.parts[2].name
+
+  const tehtava0 = props.course.parts[0].exercises
+  const tehtava1 = props.course.parts[1].exercises
+  const tehtava2 = props.course.parts[2].exercises
+
   return (
     <div>
-      <Part osa = {props.osa1} tehtavia = {props.exercises1} />
-      <Part osa = {props.osa2} tehtavia = {props.exercises2} />
-      <Part osa = {props.osa3} tehtavia = {props.exercises3} />
+      <Part osa = {nimi0} tehtavia = {tehtava0} />
+      <Part osa = {nimi1} tehtavia = {tehtava1} />
+      <Part osa = {nimi2} tehtavia = {tehtava2} />
     </div>
   )
 }
@@ -34,10 +46,15 @@ const Part = (props) => {
 
 
 const Total = (props) => {
+
+  const tehtava0 = props.course.parts[0].exercises
+  const tehtava1 = props.course.parts[1].exercises
+  const tehtava2 = props.course.parts[2].exercises
+
   return (
     <div>
       <p>
-        Number of exercises {props.exercises1 + props.exercises2 + props.exercises3}
+        Number of exercises {tehtava0 + tehtava1 + tehtava2}
       </p>
     </div>
   )
@@ -45,21 +62,31 @@ const Total = (props) => {
 
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
-
+  
   return (
     <div>
-      <Header otsikko={course}/>      
-      <Content osa1={part1} osa2={part2} osa3={part3} exercises1={exercises1}
-       exercises2={exercises2} exercises3={exercises3} />
-      <Total exercises1={exercises1} exercises2={ exercises2} exercises3={exercises3} />
+
+      <Header course={course} />
+      <Content course={course} />
+      <Total course={course} />
     </div>
   )
 }
