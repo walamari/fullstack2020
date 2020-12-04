@@ -15,7 +15,7 @@ const Header = (props) => {
 
 
 const Content = (props ) => {
-
+  
   const nimi0 = props.course.parts[0].name
   const nimi1 = props.course.parts[1].name
   const nimi2 = props.course.parts[2].name
