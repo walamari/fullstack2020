@@ -7,6 +7,7 @@ import PaljonkoMaitaOn from './components/PaljonkoMaitaOn'
 const App = () => {
   const [valtiot, setMaat] = useState([])
   const [filtersana, setShowAll] = useState('')
+  const [onkoPainettu, setOnkoPainettu] = useState('')
 
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const App = () => {
   return (
     <div>
       <p> find countries <input onChange={handleFilter}/></p>
-        {PaljonkoMaitaOn(montakomaata)}
+        {PaljonkoMaitaOn(montakomaata,onkoPainettu,setOnkoPainettu )}
     </div>
   )
 }
