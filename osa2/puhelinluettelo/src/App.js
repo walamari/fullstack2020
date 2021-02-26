@@ -52,11 +52,6 @@ const App = () => {
       id: String,
     }
 
-/*     setErrorMessage(
-      console.log(error.response.data)
-    )
- */
-
 /*     if(numberObject.number.length === 0 || numberObject.name.length === 0){
       setErrorMessage(
         `Nimi tai numero ei voi olla tyhjä!`

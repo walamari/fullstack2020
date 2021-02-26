@@ -17,8 +17,8 @@ const getAll = () => {
     return request.then(response => response.data)
   }
 
-  const korvaa = newObject=> {
-    const request = axios.put(`${baseUrl}/${newObject.id}`,newObject)
+  const korvaa = (newObject, id) => {
+    const request = axios.put(`${baseUrl}/${id}`,newObject)
        return request.then(response => response.data)
   }
 
