@@ -8,7 +8,7 @@ import Notification from './components/Notification.js'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
-  const [ newName, setNewName ] = useState([])
+  const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [filtersana, setShowAll] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
@@ -45,14 +45,30 @@ const App = () => {
 
 
   const addNumber = (event) => {
-    event.preventDefault()
+    event.preventDefault() 
     const numberObject = {
       name: newName,
       number: newNumber,
-      id: newName,
+      id: String,
     }
 
-    if(TarkistaNimi(numberObject, persons) === -1){
+/*     setErrorMessage(
+      console.log(error.response.data)
+    )
+ */
+
+/*     if(numberObject.number.length === 0 || numberObject.name.length === 0){
+      setErrorMessage(
+        `Nimi tai numero ei voi olla tyhjä!`
+      )
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+      return
+    } */
+
+
+    /* if(TarkistaNimi(numberObject, persons) === -1){ */
       numerotService
       .create(numberObject)
       .then(returnedNumber => {
@@ -60,7 +76,19 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
-  
+      .catch(error => {
+        console.log(error.response.data)
+
+        setErrorMessage(
+          `${error.response.data.error}`
+        )
+
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        return
+      })
+
       setErrorMessage(
         `Added ${numberObject.name}`
       )
@@ -68,18 +96,22 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
 
-    }
+/*       setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000) */
+ /*    }
     else{
       const indeksi = (TarkistaNimi(numberObject, persons))
+
+      // aiemmin mahdollinen numeron muuttaminen toteutettiin tällä tavalla  
 
       if(window.confirm(newName + " is already added to phonebook, replace the old number with a new one?")){
         const changeObject = {
           name: persons[indeksi].name,
           number: numberObject.number,
-          id: persons[indeksi].id,
+          id: numberObject.id,
         }
         
-    
         numerotService
         .korvaa( changeObject )
         .then (response => {
@@ -92,19 +124,20 @@ const App = () => {
           setErrorMessage(null)
         }, 5000)
       }
-    }
+    } */
   }
 
 
-  const handlePoista =  (event) => {
-    if(window.confirm("Delete "+ event.target.id + " ?" )){
+  const handlePoista = (event) => {
+    const etsittavanNimi = persons.filter(person => person.id === event.target.id)
+    if(window.confirm("Delete "+ etsittavanNimi[0].name + " ?" )){
       numerotService
       .poista(event.target.id)
       .then (response => {
         setPersons(persons.filter(person => person.id !== event.target.id))
       })
       setErrorMessage(
-        `Deleted ${event.target.id}`
+        `Deleted ${etsittavanNimi[0].name}`
       )
       setTimeout(() => {
         setErrorMessage(null)
@@ -129,8 +162,8 @@ const App = () => {
         </div>
       </form>
       <h3>Numbers</h3>
-        <div onClick= {handlePoista}>
-          {namesToShow.map(henkilö => <NimenLisays key={henkilö.name} henkilö={henkilö}/>)}
+        <div >
+          {namesToShow.map(henkilö => <NimenLisays key={henkilö.name} henkilö={henkilö} handlePoista={handlePoista} />)}
         </div>
     </div>
   )
