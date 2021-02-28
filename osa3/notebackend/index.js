@@ -1,14 +1,15 @@
 const express = require('express')
 const app = express()
+
+const cors = require('cors')
+
+app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
 
 const morgan = require('morgan')
-app.use(morgan('tiny'))
 morgan(':method :url :status :res[content-length] - :response-time ms')
-
-const cors = require('cors')
-app.use(cors())
+app.use(morgan('tiny'))
 
 let persons = [
     {
@@ -34,9 +35,6 @@ let persons = [
 ]
 
 
-    app.get('/', (req, res) => {
-        res.send('<h1>Hello World!</h1>')
-    })
 
     app.get('/info', (req, res) => {
         const maara = persons.length

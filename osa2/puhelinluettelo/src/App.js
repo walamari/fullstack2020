@@ -61,9 +61,9 @@ const App = () => {
       }, 5000)
       return
     } */
-
-
     /* if(TarkistaNimi(numberObject, persons) === -1){ */
+
+      
       numerotService
       .create(numberObject)
       .then(returnedNumber => {
@@ -98,7 +98,7 @@ const App = () => {
     else{
       const indeksi = (TarkistaNimi(numberObject, persons))
 
-      // aiemmin mahdollinen numeron muuttaminen toteutettiin tällä tavalla  
+      // aiemmin tehtävänä ollut numeron muuttaminen toteutettiin tällä tavalla  
 
       if(window.confirm(newName + " is already added to phonebook, replace the old number with a new one?")){
         const changeObject = {
